@@ -1,8 +1,11 @@
-import {  useState, type DOMAttributes } from "react";
+import { useState, type DOMAttributes } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 // import { TermsOfService } from "@adyen/kyc-components/experimental/react/terms-of-service";
-import "@adyen/kyc-components/experimental/terms-of-service";
+
+// @ts-expect-error wip
+import("@adyen/kyc-components/experimental/terms-of-service");
+
 import "./App.css";
 
 function App() {
