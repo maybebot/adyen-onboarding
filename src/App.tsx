@@ -1,17 +1,9 @@
-import { useEffect, useState, type DOMAttributes } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-// import { TermsOfService } from "@adyen/kyc-components/experimental/react/terms-of-service";
-
-import "./App.css";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   const fetchToken = async () => {
     try {
       const response = await fetch("/.netlify/functions/token");
-      console.log(response);
       return response.json();
     } catch (error) {
       console.error("Error fetching token:", error);
@@ -24,68 +16,50 @@ function App() {
     locale: "en-US",
     country: "US" as const,
     fetchToken,
-    environment: "test",
+    environment: "test" as const,
   };
 
   const [loadedWc, setLoadedWc] = useState(false);
   useEffect(() => {
-    // @ts-expect-error
-    import("@adyen/kyc-components/experimental/terms-of-service")
-      .then(() => setLoadedWc(true));
-  })
+    // @ts-expect-error TODO: seems the declaration file is not read correctly
+    import("@adyen/kyc-components/experimental/terms-of-service").then(() => setLoadedWc(true));
+  });
 
   return (
-    <>
-      <div>
-        ToS
-        {/* <TermsOfService legalEntityId={process.env.VITE_ADYEN_LEGALENTITYID!} options={options} /> */}
-        {/* @ts-expect-error wip */}
-        {loadedWc ? <adyen-terms-of-service
+    <div>
+      ToS
+      {loadedWc ? (
+        <adyen-terms-of-service
           legalEntityId={legalEntityId}
           options={options}
-          sdkOptions={options}
-        >
-          {/* @ts-expect-error wip */}
-        </adyen-terms-of-service> : undefined}
-        {/* <adyen-terms-of-service
-          legalEntityId={process.env.VITE_ADYEN_LEGALENTITYID}
-          api-key={import.meta.env.VITE_ADYEN_LEM_API_KEY}
-          allow-origin="https://adyen-onboarding.netlify.app"
-          product="onboarding"
-          policy='{"resources":[{"legalEntityId":"{legalEntityId}","type":"legalEntity"}],"roles":["hostedOnboardingComponent"]}'
-        ></adyen-terms-of-service> */}
-      </div>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+        ></adyen-terms-of-service>
+      ) : undefined}
+    </div>
   );
 }
 
 export default App;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type CustomElement<T> = Partial<T & DOMAttributes<T> & { children?: any }>;
+interface AdyenTermsOfService {
+  legalEntityId: string;
+  options: {
+    locale: string;
+    country: "US";
+    fetchToken: () => Promise<{ token: string }>;
+    environment: "test" | "live";
+  };
+}
+/**
+ * The syntax for adding the type of a custom element in react/TS seems to
+ * have changed in react 19. This is different in react <18
+ * @see https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/71395
+ */
 
-declare global {
+declare module "react/jsx-runtime" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      "adyen-terms-of-service": CustomElement<any>;
+      "adyen-terms-of-service": AdyenTermsOfService;
     }
   }
 }
