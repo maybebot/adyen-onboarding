@@ -10,16 +10,13 @@ type CreateTokenPayload = {
 };
 
 export default async (req: Request, context: Context) => {
-  const baseUrl = "https://test.adyen.com/authe/v1/sessions";
+  const baseUrl = "https://test.adyen.com/authe/api/v1/sessions";
   const payload: CreateTokenPayload = {
-    allowOrigin: "https://example.com",
+    allowOrigin: "https://adyen-onboarding.netlify.app",
     product: "onboarding",
     policy: {
-      resources: [
-        { legalEntityId: "123456789", type: "legalEntity" },
-        { legalEntityId: "987654321", type: "legalEntity" },
-      ],
-      roles: [],
+      resources: [{ legalEntityId: process.env.ADYEN_LEGALENTITYID!, type: "legalEntity" }],
+      roles: ["hostedOnboardingComponent"],
     },
   };
   const headers = {
@@ -42,6 +39,8 @@ export default async (req: Request, context: Context) => {
     });
   } catch (error) {
     console.error("Error creating token:", error);
+    console.log(`Payload: ${JSON.stringify(payload)}`);
+    console.log(baseUrl);
     return new Response("Internal Server Error", { status: 500 });
   }
 };
