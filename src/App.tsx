@@ -1,10 +1,7 @@
-import { useState, type DOMAttributes } from "react";
+import { useEffect, useState, type DOMAttributes } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 // import { TermsOfService } from "@adyen/kyc-components/experimental/react/terms-of-service";
-
-// @ts-expect-error wip
-import("@adyen/kyc-components/experimental/terms-of-service");
 
 import "./App.css";
 
@@ -30,19 +27,26 @@ function App() {
     environment: "test",
   };
 
+  const [loadedWc, setLoadedWc] = useState(false);
+  useEffect(() => {
+    // @ts-expect-error
+    import("@adyen/kyc-components/experimental/terms-of-service")
+      .then(() => setLoadedWc(true));
+  })
+
   return (
     <>
       <div>
         ToS
         {/* <TermsOfService legalEntityId={process.env.VITE_ADYEN_LEGALENTITYID!} options={options} /> */}
         {/* @ts-expect-error wip */}
-        <adyen-terms-of-service
+        {loadedWc ? <adyen-terms-of-service
           legalEntityId={legalEntityId}
           options={options}
           sdkOptions={options}
         >
           {/* @ts-expect-error wip */}
-        </adyen-terms-of-service>
+        </adyen-terms-of-service> : undefined}
         {/* <adyen-terms-of-service
           legalEntityId={process.env.VITE_ADYEN_LEGALENTITYID}
           api-key={import.meta.env.VITE_ADYEN_LEM_API_KEY}
