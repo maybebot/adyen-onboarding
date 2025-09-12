@@ -1,0 +1,3 @@
+[build]
+  command = "npm run build --workspace=@adyen/onboarding-example-$EXAMPLE"
+  publish = "examples/$EXAMPLE/dist"
