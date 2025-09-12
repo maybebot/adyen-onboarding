@@ -50,4 +50,9 @@ export const fakeNetlifyPlugin = (functionDefs: NetlifyFunctionDefinition[]): Pl
       server.middlewares.use(route, fakeNetlifyFn(method, fn));
     }
   },
+  configurePreviewServer(server) {
+    for (const { route, method, fn } of functionDefs) {
+      server.middlewares.use(route, fakeNetlifyFn(method, fn));
+    }
+  },
 });
