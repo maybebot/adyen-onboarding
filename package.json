@@ -1,34 +1,31 @@
 {
-  "name": "adyen-onboarding",
+  "name": "@adyen/onboarding-examples",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "examples/*"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "check": "npm run types:check && npm run lint",
     "lint": "eslint . && prettier --config ./.prettierrc.json --ignore-unknown --check \"**/*\"",
     "lint:fix": "eslint . --fix && prettier --config ./.prettierrc.json --ignore-unknown --write \"**/*\"",
     "prepare": "bash ./scripts/process-package-lock.sh",
-    "preview": "vite preview"
+    "types:check": "tsc --noEmit"
   },
   "dependencies": {
-    "@adyen/kyc-components": "^3.73.0-beta.1",
-    "@netlify/functions": "^4.1.15",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "@netlify/functions": "^4.1.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.3.0",
     "prettier": "^3.6.2",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.16.0",
-    "vite": "^6.3.5"
+    "typescript-eslint": "^8.16.0"
   }
 }

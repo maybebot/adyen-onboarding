@@ -1,5 +1,6 @@
 import type { Context } from '@netlify/functions';
 import { type Connect, loadEnv, type Plugin } from 'vite';
+import { resolve } from 'node:path';
 
 interface NetlifyFunctionDefinition {
   route: `/.netlify/${string}`;
@@ -42,7 +43,7 @@ const fakeNetlifyFn =
 export const fakeNetlifyPlugin = (functionDefs: NetlifyFunctionDefinition[]): Plugin => ({
   name: 'fakeNetlifyPlugin',
   configEnvironment() {
-    process.env = loadEnv('development', './', '');
+    process.env = loadEnv('development', resolve(import.meta.dirname), '');
   },
   configureServer(server) {
     for (const { route, method, fn } of functionDefs) {

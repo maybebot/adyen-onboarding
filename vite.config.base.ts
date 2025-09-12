@@ -1,12 +1,12 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import { fakeNetlifyPlugin } from './fakeNetlifyPlugin.ts';
 import { default as getTokenHandler } from './netlify/functions/token.mts';
+import { resolve } from 'node:path';
 
 // https://vite.dev/config/
 export default defineConfig({
+  publicDir: resolve(import.meta.dirname, 'public'),
   plugins: [
-    react(),
     fakeNetlifyPlugin([
       {
         method: 'GET',

@@ -29,15 +29,6 @@ body {
   justify-content: center;
 }
 
-a.top {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1em;
-  color: #0f0;
-  text-decoration: none;
-}
-
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
