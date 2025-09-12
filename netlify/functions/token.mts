@@ -1,32 +1,43 @@
-import type { Context } from "@netlify/functions";
+import type { Context } from '@netlify/functions';
 
 type CreateTokenPayload = {
   allowOrigin: string;
-  product: "onboarding";
+  product: 'onboarding';
   policy: {
     resources: { legalEntityId: string; type: string }[];
     roles: string[];
   };
 };
 
-export default async (req: Request, context: Context) => {
-  const baseUrl = "https://test.adyen.com/authe/api/v1/sessions";
+export default async (_req: Request, _context: Context) => {
+  const baseUrl = `${process.env.AUTHE_URL}/api/v1/sessions`;
+
+  if (
+    !process.env.DEPLOY_PRIME_URL ||
+    !process.env.VITE_ADYEN_LEGALENTITYID ||
+    !process.env.AUTHE_URL ||
+    !process.env.AUTHE_USERNAME ||
+    !process.env.AUTHE_PASSWORD
+  ) {
+    throw new Error('Missing env vars');
+  }
+
   const payload: CreateTokenPayload = {
-    allowOrigin: "https://adyen-onboarding.netlify.app",
-    product: "onboarding",
+    allowOrigin: process.env.DEPLOY_PRIME_URL,
+    product: 'onboarding',
     policy: {
-      resources: [{ legalEntityId: process.env.ADYEN_LEGALENTITYID!, type: "legalEntity" }],
-      roles: ["hostedOnboardingComponent"],
+      resources: [{ legalEntityId: process.env.VITE_ADYEN_LEGALENTITYID, type: 'legalEntity' }],
+      roles: ['hostedOnboardingComponent'],
     },
   };
   const headers = {
-    "Content-Type": "application/json",
-    "X-API-KEY": process.env.ADYEN_LEM_API_KEY!,
+    'Content-Type': 'application/json',
+    Authorization: `Basic ${btoa(`${process.env.AUTHE_USERNAME}:${process.env.AUTHE_PASSWORD}`)}`,
   };
 
   try {
     const response = await fetch(baseUrl, {
-      method: "POST",
+      method: 'POST',
       headers,
       body: JSON.stringify(payload),
     });
@@ -35,12 +46,12 @@ export default async (req: Request, context: Context) => {
     }
     const data = await response.json();
     return new Response(JSON.stringify(data), {
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error("Error creating token:", error);
+    console.error('Error creating token:', error);
     console.log(`Payload: ${JSON.stringify(payload)}`);
     console.log(baseUrl);
-    return new Response("Internal Server Error", { status: 500 });
+    return new Response('Internal Server Error', { status: 500 });
   }
 };
