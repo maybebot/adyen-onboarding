@@ -1,19 +1,19 @@
 <template>
   <div>
     ToS
-    <adyen-terms-of-service
+    <adyen-individual
       :rootlegalentityid="rootLegalEntityId"
       :options.prop="{
         locale: 'en-US',
         environment: 'test',
         fetchToken,
       }"
-    ></adyen-terms-of-service>
+    ></adyen-individual>
   </div>
 </template>
 
 <script setup lang="ts">
-import '@adyen/kyc-components/experimental/terms-of-service';
+import '@adyen/kyc-components/experimental/individual';
 
 const rootLegalEntityId = import.meta.env.VITE_ADYEN_LEGALENTITYID;
 

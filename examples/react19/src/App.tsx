@@ -1,4 +1,4 @@
-import '@adyen/kyc-components/experimental/terms-of-service';
+import '@adyen/kyc-components/experimental/individual';
 
 const fetchToken = async () => {
   try {
@@ -13,14 +13,14 @@ function App() {
   return (
     <div>
       ToS
-      <adyen-terms-of-service
+      <adyen-individual
         options={{
           locale: 'en-US',
           environment: 'test',
           fetchToken,
         }}
         rootlegalentityid={import.meta.env.VITE_ADYEN_LEGALENTITYID}
-      ></adyen-terms-of-service>
+      ></adyen-individual>
     </div>
   );
 }
