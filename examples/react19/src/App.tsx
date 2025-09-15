@@ -1,4 +1,5 @@
 import '@adyen/kyc-components/experimental/individual';
+import './App.css';
 
 const fetchToken = async () => {
   try {

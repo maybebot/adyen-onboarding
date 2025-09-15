@@ -1,5 +1,6 @@
 import '@adyen/kyc-components/experimental/individual';
 import type { AdyenIndividualProps } from '@adyen/kyc-components/experimental/individual';
+import './main.css';
 
 const fetchToken = async () => {
   try {
