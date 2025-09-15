@@ -1,4 +1,4 @@
-import '@adyen/kyc-components/experimental/individual';
+import '@adyen/kyc-components/experimental/manage-transfer-instruments';
 import './App.css';
 
 const fetchToken = async () => {
@@ -14,12 +14,14 @@ function App() {
   return (
     <div>
       ToS
-      <adyen-individual
+      <adyen-manage-transfer-instruments
         locale="en-US"
         environment="test"
         fetchToken={fetchToken}
         rootlegalentityid={import.meta.env.VITE_ADYEN_LEGALENTITYID}
-      ></adyen-individual>
+        onAdd={() => {}}
+        onEdit={() => {}}
+      ></adyen-manage-transfer-instruments>
     </div>
   );
 }

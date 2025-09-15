@@ -1,17 +1,19 @@
 <template>
   <div>
     ToS
-    <adyen-individual
+    <adyen-manage-transfer-instruments
       :rootlegalentityid="rootLegalEntityId"
       :fetchToken="fetchToken"
       locale="en-US"
       environment="test"
-    ></adyen-individual>
+      :onAdd="onAdd"
+      :onEdit="onEdit"
+    ></adyen-manage-transfer-instruments>
   </div>
 </template>
 
 <script setup lang="ts">
-import '@adyen/kyc-components/experimental/individual';
+import '@adyen/kyc-components/experimental/manage-transfer-instruments';
 
 const rootLegalEntityId = import.meta.env.VITE_ADYEN_LEGALENTITYID;
 
@@ -23,6 +25,9 @@ const fetchToken = async () => {
     console.error('Error fetching token:', error);
   }
 };
+
+const onAdd = () => {};
+const onEdit = () => {};
 </script>
 
 <style>

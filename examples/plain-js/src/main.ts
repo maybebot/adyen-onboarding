@@ -1,5 +1,5 @@
-import '@adyen/kyc-components/experimental/individual';
-import type { AdyenIndividualProps } from '@adyen/kyc-components/experimental/individual';
+import '@adyen/kyc-components/experimental/manage-transfer-instruments';
+import type { AdyenManageTransferInstrumentsProps } from '@adyen/kyc-components/experimental/manage-transfer-instruments';
 import './main.css';
 
 const fetchToken = async () => {
@@ -11,10 +11,14 @@ const fetchToken = async () => {
   }
 };
 
-const webComponent = document.createElement('adyen-individual') as unknown as AdyenIndividualProps;
+const webComponent = document.createElement(
+  'adyen-manage-transfer-instruments',
+) as unknown as AdyenManageTransferInstrumentsProps;
 webComponent.rootlegalentityid = import.meta.env.VITE_ADYEN_LEGALENTITYID;
 webComponent.locale = 'en-US';
 webComponent.environment = 'test';
 webComponent.fetchToken = fetchToken;
+webComponent.onAdd = () => {};
+webComponent.onEdit = () => {};
 
 document.getElementById('root')!.appendChild(webComponent as unknown as HTMLElement);
