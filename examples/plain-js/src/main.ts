@@ -17,8 +17,5 @@ webComponent.options = {
   environment: 'test',
   fetchToken,
 };
-webComponent.settings = {
-  acceptedCountries: ['AD', 'US', 'NZ'],
-};
 
 document.getElementById('root')!.appendChild(webComponent as unknown as HTMLElement);

@@ -8,9 +8,6 @@
         environment: 'test',
         fetchToken,
       }"
-      :settings="{
-        acceptedCountries: ['AD', 'US', 'NZ'],
-      }"
     ></adyen-terms-of-service>
   </div>
 </template>

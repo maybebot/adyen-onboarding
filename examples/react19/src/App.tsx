@@ -20,9 +20,6 @@ function App() {
           fetchToken,
         }}
         rootlegalentityid={import.meta.env.VITE_ADYEN_LEGALENTITYID}
-        settings={{
-          acceptedCountries: ['AD', 'US', 'NZ'],
-        }}
       ></adyen-terms-of-service>
     </div>
   );
