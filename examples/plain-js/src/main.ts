@@ -12,10 +12,8 @@ const fetchToken = async () => {
 
 const webComponent = document.createElement('adyen-individual') as unknown as AdyenIndividualProps;
 webComponent.rootlegalentityid = import.meta.env.VITE_ADYEN_LEGALENTITYID;
-webComponent.options = {
-  locale: 'en-US',
-  environment: 'test',
-  fetchToken,
-};
+webComponent.locale = 'en-US';
+webComponent.environment = 'test';
+webComponent.fetchToken = fetchToken;
 
 document.getElementById('root')!.appendChild(webComponent as unknown as HTMLElement);

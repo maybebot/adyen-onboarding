@@ -14,11 +14,9 @@ function App() {
     <div>
       ToS
       <adyen-individual
-        options={{
-          locale: 'en-US',
-          environment: 'test',
-          fetchToken,
-        }}
+        locale="en-US"
+        environment="test"
+        fetchToken={fetchToken}
         rootlegalentityid={import.meta.env.VITE_ADYEN_LEGALENTITYID}
       ></adyen-individual>
     </div>

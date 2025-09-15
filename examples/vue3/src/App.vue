@@ -3,11 +3,9 @@
     ToS
     <adyen-individual
       :rootlegalentityid="rootLegalEntityId"
-      :options="{
-        locale: 'en-US',
-        environment: 'test',
-        fetchToken,
-      }"
+      :fetchToken="fetchToken"
+      locale="en-US"
+      environment="test"
     ></adyen-individual>
   </div>
 </template>

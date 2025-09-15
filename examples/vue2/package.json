@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@adyen/kyc-components": "^3.73.0-beta.1",
+    "@adyen/kyc-components": "^3.73.0",
     "vue": "^2.7.16"
   },
   "devDependencies": {
