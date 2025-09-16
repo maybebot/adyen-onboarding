@@ -2,6 +2,6 @@ import Vue from 'vue';
 import App from './App.vue';
 
 new Vue({
-  el: '#root',
+  el: '#mount',
   render: (createElement) => createElement(App),
 });
