@@ -12,8 +12,10 @@ type CreateTokenPayload = {
 export default async (_req: Request, _context: Context) => {
   const baseUrl = `${process.env.AUTHE_URL}/api/v1/sessions`;
 
+  // Netlify's DEPLOY_PRIME_URL is not available in functions
+  const staticSiteUrl = "https://adyen-onboarding.netlify.app";
+
   if (
-    !process.env.DEPLOY_PRIME_URL ||
     !process.env.VITE_ADYEN_LEGALENTITYID ||
     !process.env.AUTHE_URL ||
     !process.env.AUTHE_USERNAME ||
@@ -23,7 +25,7 @@ export default async (_req: Request, _context: Context) => {
   }
 
   const payload: CreateTokenPayload = {
-    allowOrigin: process.env.DEPLOY_PRIME_URL,
+    allowOrigin: staticSiteUrl,
     product: 'onboarding',
     policy: {
       resources: [{ legalEntityId: process.env.VITE_ADYEN_LEGALENTITYID, type: 'legalEntity' }],

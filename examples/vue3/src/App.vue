@@ -11,7 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import '@adyen/kyc-components/experimental/individual';
+// @ts-ignore
+import 'https://bae81f955b.cdn.adyen.com/kyc-components-sdk/3.73.0/adyen-individual.js';
 
 const rootLegalEntityId = import.meta.env.VITE_ADYEN_LEGALENTITYID;
 
